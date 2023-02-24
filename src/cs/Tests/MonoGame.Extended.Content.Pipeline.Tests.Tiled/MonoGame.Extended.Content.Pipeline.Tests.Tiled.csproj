@@ -2,6 +2,10 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <WarningsAsErrors>false</WarningsAsErrors>
+    <Nullable>disable</Nullable>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="TestData\isometric.tmx">
