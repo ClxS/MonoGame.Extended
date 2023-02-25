@@ -33,14 +33,19 @@ namespace MonoGame.Extended.Tiled.Renderers
 
         public void AddSprite(Texture2D texture, Point2 position, Rectangle sourceRectangle, TiledMapTileFlipFlags flipFlags)
         {
+            this.AddSprite(texture, position, sourceRectangle, sourceRectangle.Size, flipFlags);
+        }
+
+        public void AddSprite(Texture2D texture, Point2 position, Rectangle sourceRectangle, Point tileRenderSize, TiledMapTileFlipFlags flipFlags)
+        {
             Indices.AddRange(CreateTileIndices(Vertices.Count));
             Debug.Assert(Indices.Count <= TiledMapHelper.MaximumIndicesPerModel);
 
-            Vertices.AddRange(CreateVertices(texture, position, sourceRectangle, flipFlags));
+            Vertices.AddRange(CreateVertices(texture, position, sourceRectangle, tileRenderSize, flipFlags));
             Debug.Assert(Vertices.Count <= TiledMapHelper.MaximumVerticesPerModel);
         }
 
-        private static IEnumerable<VertexPositionTexture> CreateVertices(Texture2D texture, Vector2 position, Rectangle sourceRectangle, TiledMapTileFlipFlags flags = TiledMapTileFlipFlags.None)
+        private static IEnumerable<VertexPositionTexture> CreateVertices(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Point tileRenderSize, TiledMapTileFlipFlags flags = TiledMapTileFlipFlags.None)
         {
             var reciprocalWidth = 1f / texture.Width;
             var reciprocalHeight = 1f / texture.Height;
@@ -52,9 +57,9 @@ namespace MonoGame.Extended.Tiled.Renderers
             VertexPositionTexture vertexTopLeft, vertexTopRight, vertexBottomLeft, vertexBottomRight;
 
             vertexTopLeft.Position = new Vector3(position, 0);
-            vertexTopRight.Position = new Vector3(position + new Vector2(sourceRectangle.Width, 0), 0);
-            vertexBottomLeft.Position = new Vector3(position + new Vector2(0, sourceRectangle.Height), 0);
-            vertexBottomRight.Position = new Vector3(position + new Vector2(sourceRectangle.Width, sourceRectangle.Height), 0);
+            vertexTopRight.Position = new Vector3(position + new Vector2(tileRenderSize.X, 0), 0);
+            vertexBottomLeft.Position = new Vector3(position + new Vector2(0, tileRenderSize.Y), 0);
+            vertexBottomRight.Position = new Vector3(position + new Vector2(tileRenderSize.X, tileRenderSize.Y), 0);
 
             vertexTopLeft.TextureCoordinate.Y = texelTop;
             vertexTopLeft.TextureCoordinate.X = texelLeft;

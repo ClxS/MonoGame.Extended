@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Extended.Tiled.Renderers
@@ -61,15 +62,35 @@ namespace MonoGame.Extended.Tiled.Renderers
 
                     if (tilesetTile is TiledMapTilesetAnimatedTile animatedTilesetTile)
                     {
-                        animatedLayerBuilder.AddSprite(texture, position, sourceRectangle, flipFlags);
-                        animatedLayerBuilder.AnimatedTilesetTiles.Add(animatedTilesetTile);
+                        switch (tileset.TileRenderSize)
+                        {
+                            case TileRenderSize.Tile:
+                                animatedLayerBuilder.AddSprite(texture, position, sourceRectangle, flipFlags);
+                                break;
+                            case TileRenderSize.Grid:
+                                animatedLayerBuilder.AddSprite(texture, position, sourceRectangle, new Point(map.TileWidth, map.TileHeight), flipFlags);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
 
+                        animatedLayerBuilder.AnimatedTilesetTiles.Add(animatedTilesetTile);
                         if (animatedLayerBuilder.IsFull)
                             layerModels.Add(animatedLayerBuilder.Build(_graphicsDevice, texture));
                     }
                     else
                     {
-                        staticLayerBuilder.AddSprite(texture, position, sourceRectangle, flipFlags);
+                        switch (tileset.TileRenderSize)
+                        {
+                            case TileRenderSize.Tile:
+                                staticLayerBuilder.AddSprite(texture, position, sourceRectangle, flipFlags);
+                                break;
+                            case TileRenderSize.Grid:
+                                staticLayerBuilder.AddSprite(texture, position, sourceRectangle, new Point(map.TileWidth, map.TileHeight), flipFlags);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
 
                         if (staticLayerBuilder.IsFull)
                             layerModels.Add(staticLayerBuilder.Build(_graphicsDevice, texture));

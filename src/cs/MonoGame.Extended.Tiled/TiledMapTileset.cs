@@ -20,7 +20,7 @@ namespace MonoGame.Extended.Tiled
 
     public class TiledMapTileset : ITileset
     {
-        public TiledMapTileset(Texture2D texture, int tileWidth, int tileHeight, int tileCount, int spacing, int margin, int columns)
+        public TiledMapTileset(Texture2D texture, int tileWidth, int tileHeight, int tileCount, int spacing, int margin, int columns, TileRenderSize tileRenderSize)
         {
             Texture = texture;
             TileWidth = tileWidth;
@@ -29,6 +29,7 @@ namespace MonoGame.Extended.Tiled
             Spacing = spacing;
             Margin = margin;
             Columns = columns;
+            this.TileRenderSize = tileRenderSize;
             Properties = new TiledMapProperties();
             Tiles = new List<TiledMapTilesetTile>();
         }
@@ -51,6 +52,8 @@ namespace MonoGame.Extended.Tiled
         public int Columns { get; }
         public List<TiledMapTilesetTile> Tiles { get; }
         public TiledMapProperties Properties { get; }
+
+        public TileRenderSize TileRenderSize { get; }
 
         public int Rows => (int)Math.Ceiling((double) TileCount / Columns);
         public int ActualWidth => TileWidth * Columns;

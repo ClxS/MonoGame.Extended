@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using MonoGame.Extended.Tiled;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using MonoGame.Extended.Tiled.Serialization;
@@ -40,6 +41,7 @@ namespace MonoGame.Extended.Content.Pipeline.Tiled
             writer.Write(tileset.Margin);
             writer.Write(tileset.Columns);
             writer.Write(tileset.Tiles.Count);
+            writer.Write((int)tileset.TileRenderSize);
 
             foreach (var tilesetTile in tileset.Tiles)
                 WriteTilesetTile(writer, tilesetTile);

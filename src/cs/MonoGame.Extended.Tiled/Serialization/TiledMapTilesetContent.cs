@@ -49,6 +49,9 @@ namespace MonoGame.Extended.Tiled.Serialization
         [XmlElement(ElementName = "tile")]
         public List<TiledMapTilesetTileContent> Tiles { get; set; }
 
+        [XmlAttribute(AttributeName = "tilerendersize")]
+        public TileRenderSize TileRenderSize { get; set; } = TileRenderSize.Tile;
+
         [XmlArray("properties")]
         [XmlArrayItem("property")]
         public List<TiledMapPropertyContent> Properties { get; set; }
