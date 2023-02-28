@@ -17,7 +17,17 @@ namespace MonoGame.Extended.Tiled
 
 		public static TiledMapTileset ReadTileset(ContentReader reader)
 		{
-			var texture = reader.ReadExternalReference<Texture2D>();
+            Texture2D? texture = null;
+            try
+            {
+                texture = reader.ReadExternalReference<Texture2D>();
+            }
+            catch (Exception e)
+            {
+                // TODO Change this once server specific builds are added
+                // Ignored. We allow server builds to fail reading textures as we dont build them there.
+            }
+
             var tileWidth = reader.ReadInt32();
             var tileHeight = reader.ReadInt32();
             var tileCount = reader.ReadInt32();
