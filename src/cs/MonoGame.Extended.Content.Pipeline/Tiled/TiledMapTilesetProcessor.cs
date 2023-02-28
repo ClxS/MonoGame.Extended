@@ -15,7 +15,7 @@ namespace MonoGame.Extended.Content.Pipeline.Tiled
 
 			    ContentLogger.Logger = context.Logger;
 				ContentLogger.Log($"Processing tileset '{tileset.Name}'");
-                
+
 				// Build the Texture2D asset and load it as it will be saved as part of this tileset file.
 			    //var externalReference = new ExternalReference<Texture2DContent>(tileset.Image.Source);
 			    var parameters = new OpaqueDataDictionary
@@ -41,7 +41,7 @@ namespace MonoGame.Extended.Content.Pipeline.Tiled
 			catch (Exception ex)
 			{
 				context.Logger.LogImportantMessage(ex.Message);
-				throw ex;
+				throw;
 			}
 		}
 	}
