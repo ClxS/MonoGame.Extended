@@ -15,7 +15,7 @@ namespace MonoGame.Extended.Sprites
         }
 
         public SpriteSheetAnimation(string name, TextureRegion2D[] keyFrames, float frameDuration = DefaultFrameDuration,
-            bool isLooping = true, bool isReversed = false, bool isPingPong = false)
+            bool isLooping = true, bool isReversed = false, bool isPingPong = false, bool areCellsMirrored = false)
             : base(null, false)
         {
             Name = name;
@@ -24,12 +24,8 @@ namespace MonoGame.Extended.Sprites
             IsLooping = isLooping;
             IsReversed = isReversed;
             IsPingPong = isPingPong;
+            AreCellsMirrored = areCellsMirrored;
             CurrentFrameIndex = IsReversed ? KeyFrames.Length - 1 : 0;
-        }
-
-        public SpriteSheetAnimation(string name, TextureRegion2D[] keyFrames, SpriteSheetAnimationData data)
-            : this(name, keyFrames, data.FrameDuration, data.IsLooping, data.IsReversed, data.IsPingPong)
-        {
         }
 
         public string Name { get; }
@@ -38,6 +34,7 @@ namespace MonoGame.Extended.Sprites
         public bool IsLooping { get; set; }
         public bool IsReversed { get; set; }
         public bool IsPingPong { get; set; }
+        public bool AreCellsMirrored { get; set; }
         public new bool IsComplete => CurrentTime >= AnimationDuration;
 
         public float AnimationDuration => IsPingPong
@@ -45,6 +42,9 @@ namespace MonoGame.Extended.Sprites
             : KeyFrames.Length*FrameDuration;
 
         public TextureRegion2D CurrentFrame => KeyFrames[CurrentFrameIndex];
+
+        public bool IsCurrentCellMirrored => this.AreCellsMirrored;
+
         public int CurrentFrameIndex { get; private set; }
 
         public float FramesPerSecond

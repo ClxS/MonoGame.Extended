@@ -5,17 +5,21 @@ using Newtonsoft.Json;
 namespace MonoGame.Extended.Sprites
 {
     [JsonConverter(typeof(SpriteSheetAnimationFrameJsonConverter))]
-    [DebuggerDisplay("{Index} {Duration}")]
+    [DebuggerDisplay("{Index} {Duration} (Mirrored: {IsCellMirrored})")]
     public class SpriteSheetAnimationFrame
     {
         public SpriteSheetAnimationFrame(int index, float duration = 0.2f)
         {
-            Index = index;
-            Duration = duration;
+            this.Index = Math.Abs(index);
+            this.Duration = duration;
+            this.IsCellMirrored = index < 0;
         }
 
         public int Index { get; set; }
+
         public float Duration { get; set; }
+
+        public bool IsCellMirrored { get; set; }
     }
 
     public class SpriteSheetAnimationFrameJsonConverter : JsonConverter<SpriteSheetAnimationFrame>

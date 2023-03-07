@@ -73,6 +73,8 @@ namespace MonoGame.Extended.Sprites
             }
         }
 
+        public Vector2 CellTransform { get; set; } = Vector2.One;
+
         public Vector2[] GetCorners(Vector2 position, float rotation, Vector2 scale)
         {
             var min = -Origin;

@@ -19,6 +19,13 @@ namespace MonoGame.Extended.Tiled
 
         private void CreateTextureCoordinates(TiledMapTileset tileset)
         {
+            // If the tileset.Texture is null, like it may be in server builds, use default rect
+            // TODO Revise once server-specific databuilds are added
+            if (tileset.Texture is null)
+            {
+                return;
+            }
+
             var sourceRectangle = tileset.GetTileRegion(LocalTileIdentifier);
             var texture = tileset.Texture;
             var texelLeft = (float)sourceRectangle.X / texture.Width;

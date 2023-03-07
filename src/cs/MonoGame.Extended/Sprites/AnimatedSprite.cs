@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Extended.Sprites
 {
@@ -24,7 +25,14 @@ namespace MonoGame.Extended.Sprites
             {
                 var cycle = _spriteSheet.Cycles[name];
                 var keyFrames = cycle.Frames.Select(f => _spriteSheet.TextureAtlas[f.Index]).ToArray();
-                _currentAnimation = new SpriteSheetAnimation(name, keyFrames, cycle.FrameDuration, cycle.IsLooping, cycle.IsReversed, cycle.IsPingPong);
+                _currentAnimation = new SpriteSheetAnimation(
+                    name,
+                    keyFrames,
+                    cycle.FrameDuration,
+                    cycle.IsLooping,
+                    cycle.IsReversed,
+                    cycle.IsPingPong,
+                    cycle.IsMirrored);
 
                 if(_currentAnimation != null)
                     _currentAnimation.OnCompleted = onCompleted;
@@ -39,6 +47,9 @@ namespace MonoGame.Extended.Sprites
             {
                 _currentAnimation.Update(deltaTime);
                 TextureRegion = _currentAnimation.CurrentFrame;
+                Effect = _currentAnimation.IsCurrentCellMirrored
+                    ? SpriteEffects.FlipHorizontally
+                    : SpriteEffects.None;
             }
         }
 

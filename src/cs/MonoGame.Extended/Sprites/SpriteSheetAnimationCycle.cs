@@ -6,13 +6,19 @@ namespace MonoGame.Extended.Sprites
     {
         public SpriteSheetAnimationCycle()
         {
-            Frames = new List<SpriteSheetAnimationFrame>();
+            this.Frames = new List<SpriteSheetAnimationFrame>();
         }
 
         public float FrameDuration { get; set; } = 0.2f;
+
         public List<SpriteSheetAnimationFrame> Frames { get; set; }
+
         public bool IsLooping { get; set; }
+
         public bool IsReversed { get; set; }
+
         public bool IsPingPong { get; set; }
+
+        public bool IsMirrored { get; set; }
     }
 }

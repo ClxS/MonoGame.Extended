@@ -44,6 +44,7 @@ namespace MonoGame.Extended.Tiled
                 var localTileIdentifier = reader.ReadInt32();
                 var type = reader.ReadString();
                 var animationFramesCount = reader.ReadInt32();
+
                 var tilesetTile = animationFramesCount <= 0
                     ? ReadTiledMapTilesetTile(reader, tileset, objects =>
                         new TiledMapTilesetTile(localTileIdentifier, type, objects))
