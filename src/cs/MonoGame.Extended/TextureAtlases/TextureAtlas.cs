@@ -143,7 +143,13 @@ namespace MonoGame.Extended.TextureAtlases
         /// <param name="height">Height of the texture region.</param>
         /// <param name="thickness">Thickness of the nine patch region.</param>
         /// <returns>Created texture region.</returns>
-        public NinePatchRegion2D CreateNinePatchRegion(string name, int x, int y, int width, int height, Thickness thickness)
+        public NinePatchRegion2D CreateNinePatchRegion(
+            string name,
+            int x,
+            int y,
+            int width,
+            int height,
+            Thickness thickness)
         {
             if (_regionsByName.ContainsKey(name))
                 throw new InvalidOperationException($"Region {name} already exists in the texture atlas");

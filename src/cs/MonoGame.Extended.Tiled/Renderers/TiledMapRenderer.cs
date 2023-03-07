@@ -26,6 +26,8 @@ namespace MonoGame.Extended.Tiled.Renderers
                 LoadMap(map);
         }
 
+        public TiledMapModel? Map => this._mapModel;
+
         public void Dispose()
         {
             _mapModel?.Dispose();
@@ -135,7 +137,7 @@ namespace MonoGame.Extended.Tiled.Renderers
 		}
 
 		private void Draw(TiledMapLayer layer, Vector2 parentOffset, ref Matrix viewMatrix, ref Matrix projectionMatrix, Effect effect, float depth)
-		{ 
+		{
 			var offset = parentOffset + layer.Offset;
 
 			if (layer is TiledMapGroupLayer groupLayer)

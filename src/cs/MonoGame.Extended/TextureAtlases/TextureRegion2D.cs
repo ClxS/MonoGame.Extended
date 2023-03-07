@@ -15,7 +15,7 @@ namespace MonoGame.Extended.TextureAtlases
             : this(null, texture, region.X, region.Y, region.Width, region.Height)
         {
         }
-        
+
         public TextureRegion2D(string name, Texture2D texture, Rectangle region)
             : this(name, texture, region.X, region.Y, region.Width, region.Height)
         {

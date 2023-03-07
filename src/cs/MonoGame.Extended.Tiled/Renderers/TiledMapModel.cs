@@ -27,7 +27,10 @@ namespace MonoGame.Extended.Tiled.Renderers
         }
 
         public ReadOnlyCollection<TiledMapTileset> Tilesets => _map.Tilesets;
+
         public ReadOnlyCollection<TiledMapLayer> Layers => _map.Layers;
+
+        public IEnumerable<TiledMapLayer> AllLayers => LayersOfLayerModels.Keys;
 
         // each layer has many models
         public Dictionary<TiledMapLayer, TiledMapLayerModel[]> LayersOfLayerModels { get; }

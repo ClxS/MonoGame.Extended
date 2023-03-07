@@ -7,11 +7,17 @@ namespace MonoGame.Extended.Tiled
 {
 	public class TiledMapGroupLayer : TiledMapLayer
 	{
-		public List<TiledMapLayer> Layers { get; }
-		public TiledMapGroupLayer(string name, List<TiledMapLayer> layers, Vector2? offset = null, float opacity = 1, bool isVisible = true) 
-			: base(name, offset, opacity, isVisible)
+        public TiledMapGroupLayer(TiledMap owner, string name, List<TiledMapLayer> layers, Vector2? offset = null, float opacity = 1, bool isVisible = true)
+			: base(owner, name, offset, opacity, isVisible)
 		{
-			Layers = layers;
-		}
+            this.Layers = layers;
+
+            foreach (TiledMapLayer layer in layers)
+            {
+                layer.ParentLayer = this;
+            }
+        }
+
+        public List<TiledMapLayer> Layers { get; }
 	}
 }

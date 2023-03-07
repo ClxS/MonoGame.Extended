@@ -10,11 +10,11 @@ namespace MonoGame.Extended.Sprites
 
         public SpriteSheetAnimation(string name, TextureAtlas textureAtlas, float frameDuration = DefaultFrameDuration,
             bool isLooping = true, bool isReversed = false, bool isPingPong = false)
-            : this(name, textureAtlas.Regions.ToArray(), frameDuration, isLooping, isReversed, isPingPong)
+            : this(name, textureAtlas.Regions.Select(r => (r, false)).ToArray(), frameDuration, isLooping, isReversed, isPingPong, false)
         {
         }
 
-        public SpriteSheetAnimation(string name, TextureRegion2D[] keyFrames, float frameDuration = DefaultFrameDuration,
+        public SpriteSheetAnimation(string name, (TextureRegion2D Texture, bool IsMirrored)[] keyFrames, float frameDuration = DefaultFrameDuration,
             bool isLooping = true, bool isReversed = false, bool isPingPong = false, bool areCellsMirrored = false)
             : base(null, false)
         {
@@ -29,7 +29,7 @@ namespace MonoGame.Extended.Sprites
         }
 
         public string Name { get; }
-        public TextureRegion2D[] KeyFrames { get; }
+        public (TextureRegion2D Texture, bool IsMirrored)[] KeyFrames { get; }
         public float FrameDuration { get; set; }
         public bool IsLooping { get; set; }
         public bool IsReversed { get; set; }
@@ -41,9 +41,21 @@ namespace MonoGame.Extended.Sprites
             ? (KeyFrames.Length*2 - 2)*FrameDuration
             : KeyFrames.Length*FrameDuration;
 
-        public TextureRegion2D CurrentFrame => KeyFrames[CurrentFrameIndex];
+        public TextureRegion2D CurrentFrame => KeyFrames[CurrentFrameIndex].Texture;
 
-        public bool IsCurrentCellMirrored => this.AreCellsMirrored;
+        public bool IsCurrentCellMirrored
+        {
+            get
+            {
+                bool mirrored = this.AreCellsMirrored;
+                if (KeyFrames[CurrentFrameIndex].IsMirrored)
+                {
+                    mirrored = !mirrored;
+                }
+
+                return mirrored;
+            }
+        }
 
         public int CurrentFrameIndex { get; private set; }
 

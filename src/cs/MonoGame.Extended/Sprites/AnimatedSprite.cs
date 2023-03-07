@@ -24,7 +24,7 @@ namespace MonoGame.Extended.Sprites
             if (_currentAnimation == null || _currentAnimation.IsComplete || _currentAnimation.Name != name)
             {
                 var cycle = _spriteSheet.Cycles[name];
-                var keyFrames = cycle.Frames.Select(f => _spriteSheet.TextureAtlas[f.Index]).ToArray();
+                var keyFrames = cycle.Frames.Select(f => (_spriteSheet.TextureAtlas[f.Index], f.IsCellMirrored)).ToArray();
                 _currentAnimation = new SpriteSheetAnimation(
                     name,
                     keyFrames,
