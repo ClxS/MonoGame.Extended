@@ -17,6 +17,7 @@ namespace MonoGame.Extended.Tiled
             Properties = new TiledMapProperties();
         }
 
+        public TiledMapLayer Layer { get; set; }
         public int Identifier { get; }
         public string Name { get; set; }
         public string Type { get; set; }

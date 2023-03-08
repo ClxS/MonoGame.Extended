@@ -11,6 +11,10 @@ namespace MonoGame.Extended.Tiled
             Color = color;
             DrawOrder = drawOrder;
             Objects = objects;
+            foreach (TiledMapObject obj in objects)
+            {
+                obj.Layer = this;
+            }
         }
 
         public Color? Color { get; }

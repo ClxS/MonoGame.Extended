@@ -79,10 +79,12 @@ namespace MonoGame.Extended.Tiled
 			var objectCount = reader.ReadInt32();
 			var objects = new TiledMapObject[objectCount];
 
-			for (var i = 0; i < objectCount; i++)
-				objects[i] = ReadTiledMapObject(reader, tileset);
+            for (var i = 0; i < objectCount; i++)
+            {
+                objects[i] = ReadTiledMapObject(reader, tileset);
+            }
 
-			return createTile(objects);
+            return createTile(objects);
 		}
 
 		private static TiledMapObject ReadTiledMapObject(ContentReader reader, TiledMapTileset tileset)
